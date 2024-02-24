@@ -1,0 +1,54 @@
+service:
+  port: 8080
+spring:
+  application:
+    name: taskservice
+
+  datasource:
+    url: jdbc:mysql://servicesdb:3306/taskdb
+    username: root
+    password: 123456
+
+  springdoc:
+    api-docs:
+      path=/api-docs:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  security:
+    user:
+      name: eureka
+      password: eureka
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    preferIpAddress: false
+    serviceUrl:
+      defaultZone: http://taskserver:8761/eureka/
+
+management:
+  endpoint:
+    health:
+      group:
+        custom:
+          include: diskSpace, ping
+          show-components: always
+          show-details: always
+          status:
+            http-mapping:
+              up: 207
+    info:
+      enabled: true
+      app:
+        name: 'service'
+        version: '0.0.5'
+        description: 'task service'
+  endpoints:
+    web:
+      exposure:
+        include: '*'

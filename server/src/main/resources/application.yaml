@@ -1,0 +1,39 @@
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: taskserver
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+
+spring:
+  security:
+    user:
+      name: eureka
+      password: eureka
+
+management:
+  endpoint:
+    health:
+      group:
+        custom:
+          include: diskSpace, ping
+          show-components: always
+          show-details: always
+          status:
+            http-mapping:
+              up: 207
+    info:
+      enabled: true
+      app:
+        name: 'eureka server'
+        version: '0.0.5'
+        description: 'eureka server for task services'
+  endpoints:
+    web:
+      exposure:
+        include: '*'
